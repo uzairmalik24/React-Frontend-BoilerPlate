@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTheme } from '../../../store';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import {
     FiSun,
@@ -23,6 +23,7 @@ const AdminTopbar = ({ onToggleSidebar }) => {
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate();
 
     const profileRef = useRef(null);
     const notificationsRef = useRef(null);
@@ -287,8 +288,9 @@ const AdminTopbar = ({ onToggleSidebar }) => {
                     isOpen={isModalOpen}
                     message='Are you sure you want to logout?'
                     onConfirm={() => {
-                        dispatch(clearAdmin());
+                        // dispatch(clearAdmin());
                         setIsModalOpen(false);
+                        navigate('/login');
                     }}
                     onClose={() => setIsModalOpen(false)}
                     confirmButtonVariant="danger"
