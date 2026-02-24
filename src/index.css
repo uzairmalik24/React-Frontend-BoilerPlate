@@ -1,69 +1,159 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ── Light theme (default) ─────────────────────────────────────── */
-/* Light */
-/* Light */
 :root {
-  --primary: 152 69% 31%;
-  /* emerald-700 */
-  --primary-foreground: 0 0% 100%;
+  --primary: oklch(46% 0.14 165);
+  /* emerald-ish, your old hsl(152 69% 31%) */
+  --primary-foreground: oklch(99% 0.01 80);
+  /* near white */
 
-  --secondary: 152 25% 96%;
-  --secondary-foreground: 152 69% 31%;
+  --secondary: oklch(96.5% 0.025 165);
+  /* very light emerald tint */
+  --secondary-foreground: oklch(46% 0.14 165);
 
-  --tertiary: 173 63% 45%;
-  /* teal-500 */
-  --tertiary-foreground: 0 0% 100%;
+  --tertiary: oklch(65% 0.13 185);
+  /* teal-500-ish */
+  --tertiary-foreground: oklch(99% 0.01 80);
 
-  --background: 0 0% 100%;
-  --foreground: 160 10% 5%;
-  --muted: 152 25% 94%;
-  --muted-foreground: 160 5% 45%;
-  --border: 152 25% 88%;
-  --card: 0 0% 100%;
-  --card-foreground: 160 10% 5%;
+  --background: oklch(99.8% 0.005 80);
+  /* clean white with tiny warmth */
+  --foreground: oklch(14% 0.03 240);
+  --muted: oklch(96.5% 0.018 165);
+  /* tinted light gray */
+  --muted-foreground: oklch(48% 0.04 240);
+  --border: oklch(90% 0.025 165);
+  --input: oklch(90% 0.025 165);
+  --ring: var(--primary);
+
+  --card: var(--background);
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--card-foreground);
+  --accent: var(--muted);
+  --accent-foreground: var(--muted-foreground);
+  --destructive: oklch(58% 0.24 27);
+  /* red for errors */
+  --destructive-foreground: oklch(99% 0 0);
+
+  --radius: 0.625rem;
+
+  /* Sidebar fallbacks if used – adjust as needed */
+  --sidebar: oklch(99% 0.005 80);
+  --sidebar-foreground: oklch(14% 0.03 240);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--muted);
+  --sidebar-accent-foreground: var(--muted-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+
+  /* Chart colors – using emerald/teal palette variations */
+  --chart-1: oklch(62% 0.18 165);
+  --chart-2: oklch(68% 0.15 185);
+  --chart-3: oklch(52% 0.16 170);
+  --chart-4: oklch(75% 0.14 160);
+  --chart-5: oklch(58% 0.17 175);
 }
 
-/* Dark */
+/* Dark mode */
 .dark {
-  --primary: 152 69% 45%;
-  --primary-foreground: 160 10% 5%;
+  --primary: oklch(68% 0.145 165);
+  /* brighter emerald */
+  --primary-foreground: oklch(14% 0.03 240);
 
-  --secondary: 160 8% 14%;
-  --secondary-foreground: 152 69% 45%;
+  --secondary: oklch(18% 0.035 165);
+  --secondary-foreground: oklch(68% 0.145 165);
 
-  --tertiary: 173 63% 55%;
-  --tertiary-foreground: 160 10% 5%;
+  --tertiary: oklch(72% 0.135 185);
+  --tertiary-foreground: oklch(14% 0.03 240);
 
-  --background: 160 10% 5%;
-  --foreground: 0 0% 98%;
-  --muted: 160 8% 18%;
-  --muted-foreground: 160 5% 65%;
-  --border: 160 8% 24%;
-  --card: 160 10% 6%;
-  --card-foreground: 0 0% 98%;
+  --background: oklch(11% 0.035 240);
+  --foreground: oklch(98% 0.008 80);
+  --muted: oklch(20% 0.035 165);
+  --muted-foreground: oklch(70% 0.045 240);
+  --border: oklch(28% 0.045 165);
+  --input: oklch(28% 0.045 165);
+  --ring: var(--primary);
+
+  --card: oklch(13.5% 0.035 240);
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--card-foreground);
+  --accent: var(--muted);
+  --accent-foreground: var(--muted-foreground);
+  --destructive: oklch(68% 0.22 25);
+  --destructive-foreground: oklch(98% 0 0);
+
+  /* Sidebar dark */
+  --sidebar: oklch(11% 0.035 240);
+  --sidebar-foreground: oklch(98% 0.008 80);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--muted);
+  --sidebar-accent-foreground: var(--muted-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+
+  /* Charts dark – brighter versions */
+  --chart-1: oklch(72% 0.19 165);
+  --chart-2: oklch(78% 0.16 185);
+  --chart-3: oklch(65% 0.17 170);
+  --chart-4: oklch(82% 0.15 160);
+  --chart-5: oklch(70% 0.18 175);
 }
 
-/* Make variables available as Tailwind colors */
+/* ── Make variables available as Tailwind colors ── */
 @theme inline {
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-tertiary: var(--tertiary);
+  --color-tertiary-foreground: var(--tertiary-foreground);
 
-  --color-secondary: hsl(var(--secondary));
-  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 
-  --color-tertiary: hsl(var(--tertiary));
-  --color-tertiary-foreground: hsl(var(--tertiary-foreground));
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
 
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
-  --color-muted: hsl(var(--muted));
-  --color-muted-foreground: hsl(var(--muted-foreground));
-  --color-border: hsl(var(--border));
-  --color-card: hsl(var(--card));
-  --color-card-foreground: hsl(var(--card-foreground));
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
 }
 
 /* Base styles */
@@ -75,52 +165,30 @@
   body {
     @apply bg-background text-foreground;
   }
-}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Scrollbar styles */
-
-@layer base {
-
-  /* Standard properties - apply to root only (viewport + propagation) */
   html {
     scrollbar-width: thin;
-    scrollbar-color: hsl(var(--primary) / 0.7) hsl(var(--muted) / 0.4);
+    scrollbar-color: color-mix(in oklch, var(--primary) 70%, transparent) color-mix(in oklch, var(--muted) 40%, transparent);
   }
 
-  /* WebKit pseudo-elements - very specific, hard to override accidentally */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
 
   ::-webkit-scrollbar-track {
-    background: hsl(var(--muted) / 0.4);
+    background: color-mix(in oklch, var(--muted) 40%, transparent);
     border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: hsl(var(--primary) / 0.7);
+    background-color: color-mix(in oklch, var(--primary) 70%, transparent);
     border-radius: 9999px;
-    border: 2px solid hsl(var(--muted) / 0.4);
-    /* creates nice "inset" look */
+    border: 2px solid color-mix(in oklch, var(--muted) 40%, transparent);
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background-color: hsl(var(--primary) / 0.9);
+    background-color: var(--primary);
   }
 }
 
